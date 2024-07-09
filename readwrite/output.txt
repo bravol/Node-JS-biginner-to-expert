@@ -1,2 +1,1 @@
-Here is the text: this is example of reading the file. and this is the end of the text.
- Created o 1720438483731
+this is example of reading the file.
