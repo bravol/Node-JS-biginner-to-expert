@@ -1,23 +1,19 @@
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
+const slugify = require("slugify");
 const replaceTemplate = require("./modules/replace_template");
 
 // Read data synchronously at the beginning
-const template_overview = fs.readFileSync(
-  `${__dirname}/templates/overview.html`,
-  "utf-8"
-);
-const template_card = fs.readFileSync(
-  `${__dirname}/templates/card.html`,
-  "utf-8"
-);
-const template_product = fs.readFileSync(
-  `${__dirname}/templates/product.html`,
-  "utf-8"
-);
+const template_overview = fs.readFileSync(`${__dirname}/templates/overview.html`, "utf-8");
+const template_card = fs.readFileSync(`${__dirname}/templates/card.html`, "utf-8");
+const template_product = fs.readFileSync(`${__dirname}/templates/product.html`, "utf-8");
 const data = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
+
+//slugs
+const slugs = dataObj.map((data) => slugify(data.productName, { lower: true }));
+console.log(slugs);
 
 const server = http.createServer((req, res) => {
   // const pathname = req.url;
@@ -25,9 +21,7 @@ const server = http.createServer((req, res) => {
 
   if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, { "Content-Type": "text/html" });
-    const card_html = dataObj
-      .map((product) => replaceTemplate(template_card, product))
-      .join("");
+    const card_html = dataObj.map((product) => replaceTemplate(template_card, product)).join("");
     const output = template_overview.replace("{%PRODUCT_CARDS%}", card_html);
     res.end(output);
   } else if (pathname === "/product") {
