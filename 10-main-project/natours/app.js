@@ -7,6 +7,8 @@ const app = express();
 //1.middle wares
 app.use(morgan("dev"));
 app.use(express.json()); //stands btween in the middle of request and response
+app.use(express.static(`${__dirname}/public`)); //to display pages
+
 //creating our own middelwares
 app.use((req, res, next) => {
   console.log("Logging middleware...");
