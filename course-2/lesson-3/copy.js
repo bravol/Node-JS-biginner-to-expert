@@ -10,5 +10,4 @@ fs.copyFile(source, destination, (err) => {
     console.log("created");
   }
 });
-
 // node index.js ./index.js ../copy.js
