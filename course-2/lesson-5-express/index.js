@@ -6,6 +6,7 @@ const app = express();
 const PORT = 3000;
 // const data = fs.readFileSync("./index.html");
 app.use(express.urlencoded()); //middleware to access data
+// middleware is just function which is automatically called in the middle of every request and response. It receives a req and res objects before objects handled by the application/server
 app.use("/users", users);
 // GET REQUEST
 app.get("/", (req, res) => {
