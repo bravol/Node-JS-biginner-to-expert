@@ -16,5 +16,8 @@ router.use(checkContentType);
 router.get("/client", (req, res) => {
   res.send("Welcome to /client Route");
 });
+router.post("/brian", (req, res) => {
+  res.send("Welcome to /client Route");
+});
 
 module.exports = router;
