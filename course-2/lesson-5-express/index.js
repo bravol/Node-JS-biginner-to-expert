@@ -1,14 +1,15 @@
 const express = require("express");
-const fs = require("fs");
+// const fs = require("fs");
 const users = require("./users");
+const path = require("path");
 const app = express();
 const PORT = 3000;
-const data = fs.readFileSync("./index.html");
+// const data = fs.readFileSync("./index.html");
 app.use(express.urlencoded()); //middleware to access data
 app.use("/users", users);
 // GET REQUEST
 app.get("/", (req, res) => {
-  res.send(data.toString());
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 //POST REQUEST
@@ -22,10 +23,6 @@ app.get("/product", (req, res) => {
   res.write("<html><head><title>product</title></head></html>");
   res.write("<body><h1>This is the product</h1></body>");
   return res.end();
-});
-
-app.get("/user/:userId/:userName", (req, res) => {
-  res.send(req.params);
 });
 
 app.listen(PORT, () => {
